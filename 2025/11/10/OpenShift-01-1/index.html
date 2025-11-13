@@ -1,0 +1,203 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>OpenShift(01-1) 声明式资源管理 | Hexo</title><meta name="author" content="John Doe"><meta name="copyright" content="John Doe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="资源清单k8s 集群中的应用通常由多个资源对象组成，每个资源对象都有自己的定义和配置。k8s 提供2种方式来定义和配置资源对象第1种是命令式，就是通过k8s提供的命令 kubectl 对资源对象进操作。 第2种式声明式，把资源对象的特征按要求记录在资源清单文件中，这个文件是 YAML 或 JSON 格式。然后通过 kubectl 命令来操作资源对象。 除了测试，大部分都是用资源清单 创建资源清单文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenShift(01-1) 声明式资源管理">
+<meta property="og:url" content="http://example.com/2025/11/10/OpenShift-01-1/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="资源清单k8s 集群中的应用通常由多个资源对象组成，每个资源对象都有自己的定义和配置。k8s 提供2种方式来定义和配置资源对象第1种是命令式，就是通过k8s提供的命令 kubectl 对资源对象进操作。 第2种式声明式，把资源对象的特征按要求记录在资源清单文件中，这个文件是 YAML 或 JSON 格式。然后通过 kubectl 命令来操作资源对象。 除了测试，大部分都是用资源清单 创建资源清单文">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/index.png">
+<meta property="article:published_time" content="2025-11-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-11-12T14:31:40.000Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="OpenShift">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/index.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "OpenShift(01-1) 声明式资源管理",
+  "url": "http://example.com/2025/11/10/OpenShift-01-1/",
+  "image": "http://example.com/img/index.png",
+  "datePublished": "2025-11-09T16:00:00.000Z",
+  "dateModified": "2025-11-12T14:31:40.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Doe",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/11/10/OpenShift-01-1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'OpenShift(01-1) 声明式资源管理',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/index.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/index.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a><a class="nav-page-title" href="/"><span class="site-name">OpenShift(01-1) 声明式资源管理</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">OpenShift(01-1) 声明式资源管理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-11-09T16:00:00.000Z" title="发表于 2025-11-10 00:00:00">2025-11-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-12T14:31:40.000Z" title="更新于 2025-11-12 22:31:40">2025-11-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/">Linux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h2 id="资源清单"><a href="#资源清单" class="headerlink" title="资源清单"></a>资源清单</h2><p>k8s 集群中的应用通常由多个资源对象组成，每个资源对象都有自己的定义和配置。k8s 提供2种方式来定义和配置资源对象<br>第1种是命令式，就是通过k8s提供的命令 kubectl 对资源对象进操作。</p>
+<p>第2种式声明式，把资源对象的特征按要求记录在资源清单文件中，这个文件是 YAML 或 JSON 格式。然后通过 kubectl 命令来操作资源对象。</p>
+<p>除了测试，大部分都是用资源清单</p>
+<h3 id="创建资源清单文件"><a href="#创建资源清单文件" class="headerlink" title="创建资源清单文件"></a>创建资源清单文件</h3><p>资源清单文件的内容很多。一个基础的资源清单内容如下</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span>  <span class="comment"># 资源对象版本</span></span><br><span class="line"><span class="attr">Kind:</span> <span class="string">Pod</span> <span class="comment"># 资源对象类型</span></span><br><span class="line"><span class="attr">metadata:</span> <span class="comment"># 元数据</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx</span> <span class="comment"># 资源对象名称</span></span><br><span class="line"><span class="attr">spec:</span> <span class="comment"># 资源对象配置</span></span><br><span class="line">  <span class="attr">containers:</span> <span class="comment"># 容器列表</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span> <span class="comment"># 容器名称</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">nginx:1.14.2</span> <span class="comment"># 镜像名称</span></span><br></pre></td></tr></table></figure>
+
+<p>这么多的内容，手敲很麻烦，k8s 可以由命令来生产资源清单配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">kubectl create deployment hello-openshift -o yaml \ </span><br><span class="line">  --image registry.ocp4.example.com:8443/redhattraining/hello-world-nginx:v1.0 \</span><br><span class="line">  --save-config \ </span><br><span class="line">  --dry-run=client \ </span><br><span class="line">  &gt; ~/my-app/example-deployment.yaml</span><br></pre></td></tr></table></figure>
+
+<p>上面这条命令的选项 <code>--dry-run=client</code> 表示只生成资源清单文件，不执行任何操作。<code>-o yaml</code> 表示生成 YAML 格式的资源清单文件。最后将生成的配置重定向到 <code>~/my-app/example-deployment.yaml</code> 文件中。这样就简单多了。所以需要我们能看懂资源清单的定义语法。这是很重要的。</p>
+<p>当然了，除了用 <code>--dry-run=client</code> 选项外，我们也可以查看 kubernetes 的官网来获得最全的资源清单配置。Open<br>Shift 的Web控制台也提供了使用资源的YAML 视图。</p>
+<p>生成的配置文件也不一定符合我们的要求，可以自己增删内容。</p>
+<p>最开始我们说应用是多个资源对象的组合。现在我们只有一个资源对象，那怎么创建多个资源对象呢？ 也有2种方式。<br>第1种是把多个资源清单文件放在一个目录下，然后通过 kubectl create -f 命令添加 –recursive&#x3D;true 或 -R 选项，以递归方式处理多个子目录中提供的资源文件(这个目录下以及子目录的所有清单文件都会被处理)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[user@host ~]$ tree my-app</span><br><span class="line">my-app</span><br><span class="line">├── example_deployment.yaml</span><br><span class="line">└── service</span><br><span class="line">    └── example_service.yaml</span><br><span class="line"></span><br><span class="line">[user@host ~]$ kubectl create -R -f ~/my-app</span><br><span class="line">deployment.apps/hello-openshift created</span><br><span class="line">service/hello-openshift created</span><br></pre></td></tr></table></figure>
+
+<p>第2种是把多个清单文件的内容放在一个文件中，用 kubectl create -f 命令处理。这个方式要注意的是，每个资源对象需要用 — 行作为分隔</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">resource-manifests</span></span><br><span class="line">  <span class="attr">annotations:</span></span><br><span class="line">  <span class="string">...output</span> <span class="string">omitted...</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">resource-manifests</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">hello-openshift</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">hello-openshift</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="string">...output</span> <span class="string">omitted...</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="更新资源"><a href="#更新资源" class="headerlink" title="更新资源"></a>更新资源</h3><p>当我们需要对已经创建的资源对象做修改时，要用到 kubectl apply 命令来更新资源。</p>
+<p>kubectl apply 命令也可以来创建资源对象。作用跟 kubectl create 命令一样，但是 apply 命令会检查资源对象是否存在，如果存在则更新，不存在则创建。</p>
+<p>更新资源比创建资源更复杂。​kubectl apply 命令实施了多种技术来应用更新且不会导致问题。​</p>
+<p>kubectl apply 命令将配置文件的内容写入到 kubectl.kubernetes.io&#x2F;last-applied-configuration 注释。​kubectl create 命令也可以通过使用 –save-config 选项生成此注释。​kubectl apply 命令使用 last-applied-configuration 注释来标识已从配置文件中删除并且必须从实时配置中清除的字段。​</p>
+<p>虽然 kubectl create -f 命令可以从清单创建资源，但命令是命令式的，因此不考虑活动资源的当前状态。​对实时资源的清单执行 kubectl create -f 会出错。​相比之下，kubectl apply -f 命令是声明式的，会考虑集群中当前资源状态与清单中表示的预期资源状态之间的差异。</p>
+<h3 id="YAML-验证"><a href="#YAML-验证" class="headerlink" title="YAML 验证"></a>YAML 验证</h3><p>在操作之前，可以用 <code>--dry-run=server</code> 和 <code>--validate=true</code> 标志来检查文件是否有错误。</p>
+<ul>
+<li><code>--dry-run=server</code> 选项提交服务器端请求，但不持久保留资源。​</li>
+<li><code>--validate=true</code> 选项使用模式来验证输入，如果输入无效，则请求失败。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[user@host ~]$ kubectl apply -f ~/my-app/example-deployment.yaml \</span><br><span class="line">  --dry-run=server --validate=<span class="literal">true</span></span><br><span class="line">...output omitted...</span><br><span class="line">deployment.apps/hello-openshift created (server dry-run)</span><br></pre></td></tr></table></figure>
+
+<p>以 (server dry-run) 结尾的输出行提供了应用资源文件将执行的操作。</p>
+<p><code>--dry-run=server</code> 和 <code>--dry-run=client</code> 选项的区别：<code>--dry-run=server</code> 提交服务器端请求，但不持久保存资源。<code>--dry-run=client</code> 仅检查输入，但不提交请求。</p>
+<h3 id="比较资源"><a href="#比较资源" class="headerlink" title="比较资源"></a>比较资源</h3><p>kubecel diff 命令可以查看文件的差异。 <code>-</code> 表示删除，<code>+</code> 表示添加。这可以反应资源的更新变化。</p>
+<h3 id="应用更改"><a href="#应用更改" class="headerlink" title="应用更改"></a>应用更改</h3><p>那么什么时候会更新资源呢？ kubectl apply 比较三个来源</p>
+<ol>
+<li>清单文件</li>
+<li>集群中资源的实时配置</li>
+<li>存储在 last-applied-configuration 注释中的配置</li>
+</ol>
+<p>如果清单文件中指定的资源不存在，则 kubectl apply 命令创建该资源。​如果实时资源的 last-applied-configuration 注释中的任何字段不在清单中，则命令将从实时配置中删除这些字段。​将更改应用到实时资源后，kubectl apply 命令会更新实时资源的 last-applied-configuration 注释以考虑更改。​</p>
+<p>创建资源时，kubectl create 命令的 –save-config 选项会生成所需的注释，供将来的 kubectl apply 命令操作。​</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">John Doe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2025/11/10/OpenShift-01-1/">http://example.com/2025/11/10/OpenShift-01-1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">Hexo</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/OpenShift/">OpenShift</a></div><div class="post-share"><div class="social-share" data-image="/img/index.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/11/10/OpenShift-01-2/" title="OpenShift(01-2) 练习 资源清单"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">OpenShift(01-2) 练习 资源清单</div></div><div class="info-2"><div class="info-item-1">练习内容：资源清单 从存储在 Git 服务器中的 YAML 文件的资源清单来部署和更新应用。  目标 从存储在 GitLab 存储库中的 YAML 文件的资源清单部署应用。 检查新清单中是否存在潜在的更新问题。 从新的 YAML 清单更新应用部署。​ 必要时，强制重新部署容器集。​  步骤登录到 workstaion 中，以student 用户来准备试验环境 启动实验创建实验材料 123456[student@workstation ~]$ lab start declarative-manifests SUCCESS Waiting for clusterSUCCESS Remove declarative-manifests projectSUCCESS Copy exercise filesSUCCESS Create git repositorySUCCESS Prepare git repository  第一次开始实验时会创建集群，需要用命令观察集群创建状态 12[student@workstation ~]$ ssh lab@utility  登录集群， 创建项目1...</div></div></div></a><a class="pagination-related" href="/2025/10/30/Kubernetes-01/" title="Kubernetes(一) 概述"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Kubernetes(一) 概述</div></div><div class="info-2"><div class="info-item-1">Kubernetes 简介Kubernetes 是 Google 容器管理技术 Borg 的开源版本。用来管理容器化应用。解决容器化应用部署、运行、扩展、监控、故障恢复等功能。实现容器集群的自动化部署、自动扩缩容、自动维护等功能。 Kubernetes 集群架构核心架构 Master：Kubernetes 集群的控制节点，负责集群的配置、管理、调度、监控、升级等功能。 Node：Kubernetes 集群的运行节点，负责运行容器化应用。 image：镜像仓库，存放镜像文件。  Master 核心组件 kube-apiserver：APIServer 组件，提供 RESTful API 接口，负责接收、处理、验证、授权用户请求，并返回结果。  kube-controller-manager：ControllerManager 组件，控制管理器，负责集群的维护、监控、调度、升级等功能。  kube-scheduler：Kubernetes 调度器，负责将 Pod 分配给 Node。  etcd：Kubernetes 集群数据存储，负责保存集群配置、状态、事件等信息。   Node 核...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/11/10/OpenShift-01-2/" title="OpenShift(01-2) 练习 资源清单"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-10</div><div class="info-item-2">OpenShift(01-2) 练习 资源清单</div></div><div class="info-2"><div class="info-item-1">练习内容：资源清单 从存储在 Git 服务器中的 YAML 文件的资源清单来部署和更新应用。  目标 从存储在 GitLab 存储库中的 YAML 文件的资源清单部署应用。 检查新清单中是否存在潜在的更新问题。 从新的 YAML 清单更新应用部署。​ 必要时，强制重新部署容器集。​  步骤登录到 workstaion 中，以student 用户来准备试验环境 启动实验创建实验材料 123456[student@workstation ~]$ lab start declarative-manifests SUCCESS Waiting for clusterSUCCESS Remove declarative-manifests projectSUCCESS Copy exercise filesSUCCESS Create git repositorySUCCESS Prepare git repository  第一次开始实验时会创建集群，需要用命令观察集群创建状态 12[student@workstation ~]$ ssh lab@utility  登录集群， 创建项目1...</div></div></div></a><a class="pagination-related" href="/2025/11/10/OpenShift-02/" title="OpenShift(02) Kustomize使用"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-10</div><div class="info-item-2">OpenShift(02) Kustomize使用</div></div><div class="info-2"><div class="info-item-1">kustomize上一节我们通过资源清单来创建资源实际工作中，在使用 Kubernetes 时，多个团队会使用开发、​暂存、​测试和生产等多个环境来部署应用。​这些环境在配置上也许有细微差异。如果要给每个环境都创建一个资源清单，那会很麻烦。kustomize 就可以解决这个问题。kustomize 是一个开源的配置管理工具，可以对应用配置和组件进行声明式更改，并保留原始的基础 YAML 文件.我们可以把资源对象的清单文件放在一个目录中，然后用 kustomize 复制这些文件并做修改。 kubectl 和 oc 命令已经集成了 kustomize 命令 kustomize 目录结构kustomize 的结构如下所示：  在图中我们可以看到 base 和 overlay 两部分base 是我们的基础配置文件，理解为默认，模板都可以。overlay 是我们以 base 为基础，二次修改的。 在 overlay 目录下，又有我们根据不同环境创建的目录。这就是大概的目录结构 Base (基础)基础⽬录中包含⽤于创建配置映射、部署、服务、机密和路由资源的 YAML ⽂件。他们都是通用的资源...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/index.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Doe</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E6%B8%85%E5%8D%95"><span class="toc-number">1.</span> <span class="toc-text">资源清单</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%B5%84%E6%BA%90%E6%B8%85%E5%8D%95%E6%96%87%E4%BB%B6"><span class="toc-number">1.1.</span> <span class="toc-text">创建资源清单文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E8%B5%84%E6%BA%90"><span class="toc-number">1.2.</span> <span class="toc-text">更新资源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#YAML-%E9%AA%8C%E8%AF%81"><span class="toc-number">1.3.</span> <span class="toc-text">YAML 验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AF%94%E8%BE%83%E8%B5%84%E6%BA%90"><span class="toc-number">1.4.</span> <span class="toc-text">比较资源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E6%9B%B4%E6%94%B9"><span class="toc-number">1.5.</span> <span class="toc-text">应用更改</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/10/OpenShift-01-1/" title="OpenShift(01-1) 声明式资源管理">OpenShift(01-1) 声明式资源管理</a><time datetime="2025-11-09T16:00:00.000Z" title="发表于 2025-11-10 00:00:00">2025-11-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/10/OpenShift-01-2/" title="OpenShift(01-2) 练习 资源清单">OpenShift(01-2) 练习 资源清单</a><time datetime="2025-11-09T16:00:00.000Z" title="发表于 2025-11-10 00:00:00">2025-11-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/10/OpenShift-02/" title="OpenShift(02) Kustomize使用">OpenShift(02) Kustomize使用</a><time datetime="2025-11-09T16:00:00.000Z" title="发表于 2025-11-10 00:00:00">2025-11-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/30/Kubernetes-01/" title="Kubernetes(一) 概述">Kubernetes(一) 概述</a><time datetime="2025-10-29T16:16:23.000Z" title="发表于 2025-10-30 00:16:23">2025-10-30</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By John Doe</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.1</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.1"></script><script src="/js/main.js?v=5.5.1"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
