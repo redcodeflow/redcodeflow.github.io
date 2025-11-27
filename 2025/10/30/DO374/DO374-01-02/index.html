@@ -1,0 +1,297 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Ansible Navigator 简介 | 推开世界的门</title><meta name="author" content="张铭霖"><meta name="copyright" content="张铭霖"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Ansible Navigatoransible-navigator (自动化内容导航器) 是红 帽 Ansible 自动化平台 2 中推出的一个新工具。它将 ansible-playbook、​ansible-inventory、​ansible-config 和 ansible-doc 提供的功能组合到一个顶层接口中。 ansible-navigator 的好处是：环境的隔离，专项专用。通过使">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ansible Navigator 简介">
+<meta property="og:url" content="http://example.com/2025/10/30/DO374/DO374-01-02/index.html">
+<meta property="og:site_name" content="推开世界的门">
+<meta property="og:description" content="Ansible Navigatoransible-navigator (自动化内容导航器) 是红 帽 Ansible 自动化平台 2 中推出的一个新工具。它将 ansible-playbook、​ansible-inventory、​ansible-config 和 ansible-doc 提供的功能组合到一个顶层接口中。 ansible-navigator 的好处是：环境的隔离，专项专用。通过使">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/touxiang-xiaolan.png">
+<meta property="article:published_time" content="2025-10-29T16:16:23.000Z">
+<meta property="article:modified_time" content="2025-11-18T15:40:28.959Z">
+<meta property="article:author" content="张铭霖">
+<meta property="article:tag" content="Ansible">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/touxiang-xiaolan.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Ansible Navigator 简介",
+  "url": "http://example.com/2025/10/30/DO374/DO374-01-02/",
+  "image": "http://example.com/img/touxiang-xiaolan.png",
+  "datePublished": "2025-10-29T16:16:23.000Z",
+  "dateModified": "2025-11-18T15:40:28.959Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "张铭霖",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/10/30/DO374/DO374-01-02/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":"zh-CN","highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Ansible Navigator 简介',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div id="web_bg" style="background-image: url(/img/beijin-gufeng.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/touxiang-xiaolan.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">推开世界的门</span></a><a class="nav-page-title" href="/"><span class="site-name">Ansible Navigator 简介</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Ansible Navigator 简介</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-10-29T16:16:23.000Z" title="发表于 2025-10-30 00:16:23">2025-10-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-18T15:40:28.959Z" title="更新于 2025-11-18 23:40:28">2025-11-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/DO374/">DO374</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h2 id="Ansible-Navigator"><a href="#Ansible-Navigator" class="headerlink" title="Ansible Navigator"></a>Ansible Navigator</h2><p>ansible-navigator (自动化内容导航器) 是红 帽 Ansible 自动化平台 2 中推出的一个新工具。它将 ansible-playbook、​ansible-inventory、​ansible-config 和 ansible-doc 提供的功能组合到一个顶层接口中。</p>
+<p>ansible-navigator 的好处是：环境的隔离，专项专用。通过使用有专用功能的镜像 image，可以是自己做的，也可以用别人做好的。来满足需要。因为实在容器内运行的，所以也不影响宿主机。</p>
+<p>ansible-navigator 提供了一个基于文本用户界面(TUI) 的进行交互方式运行，也可以添加 –mode stdout (或 -m stdout) 以非交互式方式运行。</p>
+<p>ansible-playbook 和 ansible-navigator -m stdout 的运行方式一样。是以非交互方式运行的</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[user@host ~]$ ansible-playbook playbook.yml -i inventory</span><br><span class="line">[user@host ~]$ ansible-navigator run playbook.yml -i inventory -m stdout</span><br></pre></td></tr></table></figure>
+
+<p>我们来看看 ansible-navigator 的运行方式吧</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[user@host ~]$ ansible-navigator run playbook.yml -i inventory</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/DO374-01-02-01-Navigator%E4%BA%A4%E4%BA%92%E5%BC%8F%E7%95%8C%E9%9D%A2.png" alt="alt text"></p>
+<p>我们主要关注这几个参数:</p>
+<ul>
+<li><code>Play name</code> 每一行就是一个play，一个任务。</li>
+<li><code>Ok</code> 运行成功了多少</li>
+<li><code>Changed</code> 成功改变了多少</li>
+<li><code>Failed</code> 运行失败的</li>
+</ul>
+<p>通过上图我们可以看到一共运行了 3 个play：</p>
+<ul>
+<li>第一个 play 是“Ensuring HAProxy is deployed”，​它运行了 9 个任务，​其中 6 个任务进行了更改。</li>
+<li>​第二个 play 是“Ensuring Apache HTTP Server is deployed”，​它运行了 14 个任务，​其中 8 个任务进行了更改。</li>
+<li>​第三个 play 是“Ensuring web content is deployed”，​它运行了 4 个任务，​其中两个进行了更改。</li>
+</ul>
+<p>我们可以输入每个play的编号，来查看指定play的详细内容。有2种方式：</p>
+<ol>
+<li>在交互式界面键盘直接键入编号进入。</li>
+<li>输入冒号加上数字编号<code>:编号</code>，我要看编号为0的play，输入<code>:0</code> 进入。</li>
+</ol>
+<p><img src="/images/DO374-01-02-02-Play%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF.png" alt="alt text"></p>
+<p>这里我们可以看到任务名称、作用的主机和运行结果。很清晰，查看每个任务的详细信息也是输入冒号加上编号。现在我要查看编号2的任务的详细信息，输入<code>:2</code></p>
+<p><img src="/images/DO374-01-02-03-Task%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF.png" alt="alt text"></p>
+<p>返回上一级按 <code>ESC</code>。完全退出按 <code>q</code> 或者 <code>：quit</code></p>
+<p>ansible-navigator 需要自动化执行环境。它是容器镜像 image， 其中包含 Ansible 内容集合、​其软件依赖项，​以及一个可运行 playbook 并与 Ansible 交互的最小 Ansible 引擎。​在一个统一的 Ansible 环境中简化自动化代码的开发、​测试和部署。</p>
+<p>redhat 官方提供了一些自动化执行环境，我们也可以自定义执行环境。<br>使用自定义执行环境的好处是可以避免在控制节点上创建多个 Python 虚拟环境。​红帽 Ansible Tower 需要多个 Python 虚拟环境，​以便支持 Ansible、​模块、​Python 库和其他软件依赖项的不同组合。​这很难开发、​部署和管理。​红 帽 Ansible 自动化平台 2 使用多个自动化执行环境，​而不是多个 Python 虚拟环境。​在 Ansible 自动化平台中，​可以在自定义执行环境中创建定制的环境，​使用 ansible-navigator对其进行测试，​并将其作为容器镜像分发到控制节点。</p>
+<p>运行ansible-navigator 默认使用 registry.redhat.io&#x2F;ansible-automation-platform-22&#x2F;ee-supported-rhel8:latest 的容器镜像。<br>参数 –execution-environment-image imagename:tag 来指定执行环境</p>
+<h2 id="配置受管主机的身份验证"><a href="#配置受管主机的身份验证" class="headerlink" title="配置受管主机的身份验证"></a>配置受管主机的身份验证</h2><p>ansible-navigator 需要能够登录受管主机并获得这些主机的超级用户特权。最简单方法是对帐户使用基于 SSH 密钥的身份验证，​该帐户应当允许通过 sudo 进行特权升级，​而无需输入密码。​</p>
+<h3 id="准备基于-SSH-密钥的身份验证"><a href="#准备基于-SSH-密钥的身份验证" class="headerlink" title="准备基于 SSH 密钥的身份验证"></a>准备基于 SSH 密钥的身份验证</h3><ul>
+<li><p>在控制节点上 Ansible 配置文件的 [defaults] 部分中，​将 remote_user 指令设置为计划在受管主机上使用的用户帐户的名称。​</p>
+</li>
+<li><p>使用 ssh-keygen 命令，​为运行 ansible-navigator 的常规用户帐户生成 SSH 密钥对。​</p>
+</li>
+<li><p>在每一受管主机上 remote_user 帐户的 ~&#x2F;.ssh&#x2F;authorized_keys 文件中，​安装该密钥对的公钥。使用 &#96;ssh-copy-id user@host 命令来执行此操作，​其中 user 是远程用户(受管节点用户)，​而 host 是其中一个受管主机。​</p>
+</li>
+<li><p>在受管主机上配置 sudo，授予 user sudo 且免密。</p>
+</li>
+</ul>
+<h3 id="为自动化执行环境提供私钥"><a href="#为自动化执行环境提供私钥" class="headerlink" title="为自动化执行环境提供私钥"></a>为自动化执行环境提供私钥</h3><p>ansible-navigator 在容器中运行，所以访问不了用户的 ~&#x2F;.ssh 目录，就没有免密访问受管主机的权限。<br>在控制节点运行 ssh-agent 命令启动 SSH 代理。 ssh-add 命令将私钥添加到代理中。 在图形化登录控制节点时会自动运行这些命令。身份验证将自动适用于该图形登录会话中的所有终端。<br>但是用ssh 远程控制节点，必须运行 eval $(ssh-agent) 命令来自行启动 ssh-agent。​在同一 shell 中，​运行 ssh-add，​并在必要时提供私钥的密语。​然后，​您可以在同一 shell 中运行 ansible-navigator 并进行身份验证。​</p>
+<h3 id="运行自动化内容导航器（ansible-navigator）"><a href="#运行自动化内容导航器（ansible-navigator）" class="headerlink" title="运行自动化内容导航器（ansible-navigator）"></a>运行自动化内容导航器（ansible-navigator）</h3><p>使用 ansible-navigator 命令​如果不带参数运行该命令或以 ansible-navigator welcome 形式运行，​它将以交互模式启动。​这会显示一个帮助页面，​描述该工具提供的子命令。</p>
+<p>早期 Ansible 命令和ansible-navigator 命令的比较</p>
+<table>
+<thead>
+<tr>
+<th align="left">早期的 Ansible 命令</th>
+<th align="left">自动化内容导航器子命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">ansible-playbook</td>
+<td align="left">ansible-navigator run</td>
+</tr>
+<tr>
+<td align="left">ansible-config</td>
+<td align="left">ansible-navigator config</td>
+</tr>
+<tr>
+<td align="left">ansible-doc</td>
+<td align="left">ansible-navigator doc</td>
+</tr>
+<tr>
+<td align="left">ansible-inventory</td>
+<td align="left">ansible-navigator inventory</td>
+</tr>
+</tbody></table>
+<p>自动化内容导航器还提供其他的功能。​大多数子命令可以从命令行或交互式自动化内容导航器会话中运行，​但有些命令不支持 -m stdout 选项。​</p>
+<p>下表简要介绍了可用的子命令。​</p>
+<table>
+<thead>
+<tr>
+<th align="left">子命令</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">collections</td>
+<td align="left">获取有关已安装集合的信息。​</td>
+</tr>
+<tr>
+<td align="left">config</td>
+<td align="left">检查当前的 Ansible 配置。​</td>
+</tr>
+<tr>
+<td align="left">doc</td>
+<td align="left">检查插件的 Ansible 文档。</td>
+</tr>
+<tr>
+<td align="left">help</td>
+<td align="left">显示 ansible-navigator 的详细帮助。</td>
+</tr>
+<tr>
+<td align="left">images</td>
+<td align="left">检查执行环境。​</td>
+</tr>
+<tr>
+<td align="left">inventory</td>
+<td align="left">浏览清单。</td>
+</tr>
+<tr>
+<td align="left">log</td>
+<td align="left">查看当前的日志文件。</td>
+</tr>
+<tr>
+<td align="left">open</td>
+<td align="left">在文本编辑器中打开当前页面。</td>
+</tr>
+<tr>
+<td align="left">replay</td>
+<td align="left">重播 playbook 构件。</td>
+</tr>
+<tr>
+<td align="left">run</td>
+<td align="left">运行 playbook。</td>
+</tr>
+</tbody></table>
+<p>ansible-navigator welcome 显示的帮助页面与上表类似。​在交互式会话中运行子命令时，​键入 : 可启动命令，​如 :config。</p>
+<h4 id="运行-Playbook"><a href="#运行-Playbook" class="headerlink" title="运行 Playbook"></a>运行 Playbook</h4><p>从命令行使用 ansible-navigator run 命令或以交互方式使用 :run 子命令，​以使用自动化内容导航器来运行 playbook。​ansible-navigator run 命令支持的选项大部分与 ansible-playbook 命令相同。​</p>
+<p>在使用默认 interactive 模式（而非 stdout 模式）时，可以按照上文所述以交互方式检查 playbook 输出。​例如，​可以显示失败的 play 或失败 play 中特定任务的详细信息。</p>
+<h4 id="检查以前的-Playbook-运行"><a href="#检查以前的-Playbook-运行" class="headerlink" title="检查以前的 Playbook 运行"></a>检查以前的 Playbook 运行</h4><p>自动化内容导航器提供了一项新的重播功能，​可显示上一次 playbook 运行的输出。​如果已启用 playbook 构件（默认为启用），​会生成一个 JSON 构件文件，​该文件包含 playbook 运行中的所有信息。​</p>
+<p>从命令行使用 ansible-navigator replay 命令或在交互模式中使用 :replay 子命令，​以检查上一次 playbook 运行。​大多数重播文件可以安全地忽略甚至删除。​如果您计划保存重播文件，​请考虑重命名该重播文件，​以便您可以更轻松地识别它。​</p>
+<p>重播文件的一个优点是，​如果 playbook 运行失败，​您可以与其他开发人员或支持团队共享其重播文件。​他们可以继续进行故障排除，​而无需访问项目目录中的所有文件，​如 playbook、​角色、​清单文件和变量文件等。​</p>
+<h4 id="阅读文档"><a href="#阅读文档" class="headerlink" title="阅读文档"></a>阅读文档</h4><p>自动化内容导航器提供对插件（如模块、​查找和回调）文档的访问，​与 ansible-doc 命令非常相似。​</p>
+<p>与 ansible-doc 命令的一个主要区别是，​ansible-navigator 不支持使用 –list (-l) 选项来列出特定类型的所有插件。必须明确指定插件名称。​</p>
+<p>例如，运行 ansible-navigator doc ansible.posix.firewalld 来显示 ansible.posix.firewalld 模块的文档。从自动化内容导航器交互式会话运行子命令 :doc ansible.posix.firewalld 效果一样。</p>
+<h4 id="获取帮助"><a href="#获取帮助" class="headerlink" title="获取帮助"></a>获取帮助</h4><p>自动化内容导航器提供多种方式来获取帮助。在交互模式中运行 ansible-navigator ，输入 :help 来打开帮助页面。​<br>或用 ansible-navigator  –help (或 -h) 可显示命令语法并描述命令选项。​</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">张铭霖</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2025/10/30/DO374/DO374-01-02/">http://example.com/2025/10/30/DO374/DO374-01-02/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">推开世界的门</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Ansible/">Ansible</a></div><div class="post-share"><div class="social-share" data-image="/img/touxiang-xiaolan.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/10/30/Linux/debian%E9%85%8D%E7%BD%AE/" title="Debian 使用配置"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Debian 使用配置</div></div><div class="info-2"><div class="info-item-1">使用配置 打卡设置 &gt; 键盘 向下滚动点击查看及自定义快捷键 向下滚动点击自定义快捷键 点击添加快捷键   终端快捷键 名称：自定义即可。我这里填terminal。 命令: gnome-terminal 快捷键: 点击添加快捷键后，键盘按自己想要的快捷键。我这里是 win+T。不区分大小写。    删除Debian自带游戏1234# 可能会出现 某某进程锁sudo apt purge gnome-2048 aisleriot atomix gnome-chess five-or-more hitori iagno gnome-klotski lightsoff gnome-mahjongg gnome-mines gnome-nibbles quadrapassel four-in-a-row gnome-robots gnome-sudoku swell-foop tali gnome-taquin gnome-tetravex -y &amp; sudo apt autoremove -y sudo reboot  软件源debian 系统会读取 /etc/apt/so...</div></div></div></a><a class="pagination-related" href="/2025/10/30/DO374/DO374-01-02-%E7%BB%83%E4%B9%A0/" title="使用自动化内容导航器运行 Playbook"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">使用自动化内容导航器运行 Playbook</div></div><div class="info-2"><div class="info-item-1">目标使用 ansible-navigator 运行 playbook 启动试验环境 此命令会在 &#x2F;home&#x2F;student&#x2F;develop-navigator&#x2F; 目录中创建一个 Ansible 项目。 1[student@workstation ~]$ lab start develop-navigator  说明安装 ansible-navigator 软件包。 1[student@workstation ~]$ sudo dnf -y install ansible-navigator  检查练习 playbook。 12345678[student@workstation ~]$ cd ~/develop-navigator/[student@workstation develop-navigator]$ tree.├── ansible.cfg├── intranet.yml└── inventory0 directories, 3 files  查看 playbook 文件 1234567891011121314151617181...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/10/30/DO374/DO374-01-02-%E7%BB%83%E4%B9%A0/" title="使用自动化内容导航器运行 Playbook"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-30</div><div class="info-item-2">使用自动化内容导航器运行 Playbook</div></div><div class="info-2"><div class="info-item-1">目标使用 ansible-navigator 运行 playbook 启动试验环境 此命令会在 &#x2F;home&#x2F;student&#x2F;develop-navigator&#x2F; 目录中创建一个 Ansible 项目。 1[student@workstation ~]$ lab start develop-navigator  说明安装 ansible-navigator 软件包。 1[student@workstation ~]$ sudo dnf -y install ansible-navigator  检查练习 playbook。 12345678[student@workstation ~]$ cd ~/develop-navigator/[student@workstation develop-navigator]$ tree.├── ansible.cfg├── intranet.yml└── inventory0 directories, 3 files  查看 playbook 文件 1234567891011121314151617181...</div></div></div></a><a class="pagination-related" href="/2025/11/17/DO374/DO374-01-03/" title="1.3 使用 Git 管理 Ansible 项目资料"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-17</div><div class="info-item-2">1.3 使用 Git 管理 Ansible 项目资料</div></div><div class="info-2"><div class="info-item-1">定义基础架构即代码基础架构即代码 (IaC) 理念是 DevOps 的一个关键概念。通过运行自动化工作流程来实现目标。让我们管理基础设施更高效、准确、可重复性强。Ansible 可以​把环境部署、软件安装、管理服务这些复杂的操作封装在 YAML 格式的 Playbook 剧本文件中。我们可以使用 Git 来管理这些剧本。这样随着项目的不断推进。我们可以轻松溯源。查询修改记录。Ansible 是实现 Iac 的强力工具。实现部署环境的一致性。并且 Ansible 可以根据需要定制自动化任务，让管理变得更加灵活，拓展更加方便。 Git 简介Git 是一种分布式版本控制系统 (DVCS)，​能够让项目参与者相互协作管理项目中的文件更改。​使用 Git 有许多好处：  可以检查和恢复文件的早期版本。 可以比较同一文件的两个版本来对比查看修改的内容 Git 会记录每次更改的详细信息，可以利用日志记录谁在何时做了哪些更改。 ​多用户可以同时修改文件、​解决相互冲突的更改，​并且合并各自的更改。​  通过Git，我们可以轻松地管理项目。我们可以从远程仓库中克隆一个已有的共享项目。克隆操作会在本...</div></div></div></a><a class="pagination-related" href="/2025/11/17/DO374/DO374-01-04/" title="1.4 使用推荐的 Ansible 做法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-17</div><div class="info-item-2">1.4 使用推荐的 Ansible 做法</div></div><div class="info-2"><div class="info-item-1">推荐使用 Ansible 的方法 保持简单 井然有序 定期测试  保持简单简洁性是ansible的优点之一，简单的 playbook 更容易使用、修改和理解。 保持简单的做法：  提高 Playbook 的可读性 使用模块执行任务而不是命令执行任务 遵循标准样式  尽然有序组织良好的标准有助于实现可维护性以及进行故障排除和审计。井然有序的做法：  遵循变量命名约定 标准化项目结构 使用动态清单 充分利用组 将角色和 Ansible 内容集合用于可重复利用的内容 集中运行 Playbook 构建自动化执行环境  经常测试在开发过程中、​任务运行时以及 playbook 投入使用后，​应经常测试  playbook 和任务。​ 测试的做法：  测试任务的结果 使用 Block 和 Rescue 指令进行恢复或回滚 使用最新的 Ansible 版本开发 Playbook 使用测试工具  </div></div></div></a><a class="pagination-related" href="/2025/11/17/DO374/DO374-02-01/" title="2.1 重复利用 Ansible 内容集合中的内容"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-17</div><div class="info-item-2">2.1 重复利用 Ansible 内容集合中的内容</div></div><div class="info-2"><div class="info-item-1">Ansible 内容集合的定义Ansible 集合就是把相关的模块、角色、插件等资源打包在一起。形成一个可复用的资源单元。这里称为集合。只需要下载集合到控制节点上，就能在playbook中使用集合的内容。 在命名空间中组织 Ansible 内容集合命名空间的作用是用管理内容时避免冲突并建立清晰的组织结构。 命名空间的格式为： namespace.collection_name.module_name 名称空间是集合名称的第一部分。可以描述成谁或组织的内容集合 使用 Ansible 内容集合访问 Ansible 内容集合文档123456[student@workstation ~]$ lab start manage-reusing[student@workstation ~]$ podman login hub.lab.example.com -u admin -p redhatLogin Succeeded![student@workstation ~]$ ansible-navigator collections --eei ee-supported-rhel8</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/touxiang-xiaolan.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">张铭霖</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Ansible-Navigator"><span class="toc-number">1.</span> <span class="toc-text">Ansible Navigator</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%8F%97%E7%AE%A1%E4%B8%BB%E6%9C%BA%E7%9A%84%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81"><span class="toc-number">2.</span> <span class="toc-text">配置受管主机的身份验证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E5%9F%BA%E4%BA%8E-SSH-%E5%AF%86%E9%92%A5%E7%9A%84%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81"><span class="toc-number">2.1.</span> <span class="toc-text">准备基于 SSH 密钥的身份验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E8%87%AA%E5%8A%A8%E5%8C%96%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83%E6%8F%90%E4%BE%9B%E7%A7%81%E9%92%A5"><span class="toc-number">2.2.</span> <span class="toc-text">为自动化执行环境提供私钥</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E8%87%AA%E5%8A%A8%E5%8C%96%E5%86%85%E5%AE%B9%E5%AF%BC%E8%88%AA%E5%99%A8%EF%BC%88ansible-navigator%EF%BC%89"><span class="toc-number">2.3.</span> <span class="toc-text">运行自动化内容导航器（ansible-navigator）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C-Playbook"><span class="toc-number">2.3.1.</span> <span class="toc-text">运行 Playbook</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E4%BB%A5%E5%89%8D%E7%9A%84-Playbook-%E8%BF%90%E8%A1%8C"><span class="toc-number">2.3.2.</span> <span class="toc-text">检查以前的 Playbook 运行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%85%E8%AF%BB%E6%96%87%E6%A1%A3"><span class="toc-number">2.3.3.</span> <span class="toc-text">阅读文档</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%B8%AE%E5%8A%A9"><span class="toc-number">2.3.4.</span> <span class="toc-text">获取帮助</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/26/Registry/Harbor%E9%83%A8%E7%BD%B2/" title="Harbor 部署">Harbor 部署</a><time datetime="2025-11-25T16:00:00.000Z" title="发表于 2025-11-26 00:00:00">2025-11-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/17/DO374/DO374-01-03/" title="1.3 使用 Git 管理 Ansible 项目资料">1.3 使用 Git 管理 Ansible 项目资料</a><time datetime="2025-11-16T16:00:00.000Z" title="发表于 2025-11-17 00:00:00">2025-11-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/17/DO374/DO374-01-04/" title="1.4 使用推荐的 Ansible 做法">1.4 使用推荐的 Ansible 做法</a><time datetime="2025-11-16T16:00:00.000Z" title="发表于 2025-11-17 00:00:00">2025-11-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/17/DO374/DO374-02-01/" title="2.1 重复利用 Ansible 内容集合中的内容">2.1 重复利用 Ansible 内容集合中的内容</a><time datetime="2025-11-16T16:00:00.000Z" title="发表于 2025-11-17 00:00:00">2025-11-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/17/Linux/debian12%E9%83%A8%E7%BD%B2kvm/" title="Debian12 部署kvm及使用">Debian12 部署kvm及使用</a><time datetime="2025-11-16T16:00:00.000Z" title="发表于 2025-11-17 00:00:00">2025-11-17</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By 张铭霖</span></div><div class="footer_custom_text"><a href="https://beian.miit.gov.cn/" target="_blank">蜀ICP备2025171200号-1</a>
+<a href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51010502015487" target="_blank">川公网安备51010502015487号</a>
+</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.2"></script><script src="/js/main.js?v=5.5.2"></script><div class="js-pjax"></div><script async data-pjax src="/"></script></div></body></html>
